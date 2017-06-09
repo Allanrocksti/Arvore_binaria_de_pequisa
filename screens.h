@@ -30,6 +30,18 @@ void display_tree_menu(){
 
 }
 
+void display_remove_menu(){
+
+    printf("\nDIGITE O VALOR PARA REMOVER: ");
+
+}
+
+void display_search_menu(){
+
+    printf("\nDIGITE O VALOR PARA PROCURAR: ");
+
+}
+
 void msg_error(){
 
     printf("\nOPCAO INVALIDA!\n");
