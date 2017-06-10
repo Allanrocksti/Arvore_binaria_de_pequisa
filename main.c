@@ -10,6 +10,39 @@ typedef enum boolean{
 
 }t_boolean;
 
+t_boolean is_number(char string[]){
+
+    t_boolean is_number = True;
+
+    int i,
+        y,
+        aux;
+
+    for(i = 0; string[i] != '\0'; i++){
+
+        aux = 48;
+        for(y = 0; y < 10; y++){
+
+            if(string[i] == aux)
+                break;
+            
+            if(y == 9)
+				is_number = False;
+				
+			aux++;
+				
+
+        }
+
+        if(is_number == False)
+            break;
+
+    }
+
+    return is_number;
+
+}
+
 int main(){
 
     t_boolean exit = False;
@@ -49,7 +82,8 @@ int main(){
         insert(&tree, aux);
     }
 
-    int number_insert;
+    char number_insert[100];
+    int number_node;
 
     while(exit != True){
 
@@ -62,26 +96,45 @@ int main(){
 
                 system("cls");
                 printf("\n\nDIGITE UM NUMERO PARA SER INSERIDO: ");
-                scanf("%d", &number_insert);
-                aux.number = number_insert;
-                insert(&tree, aux);
-                printf("\nINSERIDO COM SUCESSO !\n\n");
-                system("pause");
+                gets(number_insert);
+
+                if(is_number(number_insert) == True){
+                    number_node = atoi(number_insert);
+                    aux.number = number_node;
+                    insert(&tree, aux);
+                    printf("\nINSERIDO COM SUCESSO !\n\n");
+                    system("pause");
+                }else{
+                    printf("\nDIGITE UM NUMERO INTEIRO !\n\n");
+                    system("pause");
+                }
+
+                
 
                 break;
 
             case '2':
-                
+
                 system("cls");
                 printf("\n\nDIGITE UM NUMERO PARA SER REMOVIDO: ");
-                scanf("%d", &number_insert);
-                aux.number = number_insert;
-                int status = remove_element(&tree, aux);
+                gets(number_insert);
 
-                if(status == 1)
-                    printf("\nREMOVIDO COM SUCESSO !\n\n");
-                else
-                    printf("\nNUMERO INEXISTENTE !\n\n");
+                int status;
+
+                if(is_number(number_insert) == True){
+
+                    number_node = atoi(number_insert);
+                    aux.number = number_node;
+                    status = remove_element(&tree, aux);    
+
+                    if(status == 1)
+                        printf("\nREMOVIDO COM SUCESSO !\n\n");
+                    else
+                        printf("\nNUMERO INEXISTENTE !\n\n");
+
+                }else{
+                    printf("\nDIGITE UM NUMERO INTEIRO !\n\n");
+                }
 
                 system("pause");
 
@@ -91,17 +144,27 @@ int main(){
 
                 system("cls");
                 printf("\n\nDIGITE UM NUMERO PARA SER PESQUISADO: ");
-                scanf("%d", &number_insert);
-                aux.number = number_insert;
-                t_node *aux_search = search_node(tree, aux);
+                gets(number_insert);
 
-                if(aux_search != NULL){
-                    printf("\nO NUMERO %d EXISTE NA ARVORE!\n\n", number_insert);
-                    system("pause");
+                t_node *aux_search;
+
+                if(is_number(number_insert) == True){
+                
+                    number_node = atoi(number_insert);
+                    aux.number = number_node;
+                    aux_search = search_node(tree, aux);
+
+                    
+                    if(aux_search != NULL)
+                        printf("\nO NUMERO %d EXISTE NA ARVORE!\n\n", number_insert);
+                    else
+                        printf("\nNUMERO INEXISTENTE!\n\n");
+
                 }else{
-                    printf("\nNUMERO INEXISTENTE!\n\n");
-                    system("pause");
+                    printf("\nDIGITE UM NUMERO INTEIRO !\n\n");
                 }
+
+                system("pause");
 
                 break;
 
